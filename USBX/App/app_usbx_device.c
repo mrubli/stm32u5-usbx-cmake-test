@@ -52,7 +52,7 @@
 __ALIGN_BEGIN static UCHAR ux_device_byte_pool_buffer[UX_DEVICE_APP_MEM_POOL_SIZE] __ALIGN_END;
 
 /* USER CODE BEGIN PV */
-
+extern PCD_HandleTypeDef hpcd_USB_OTG_HS;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -76,7 +76,8 @@ UINT MX_USBX_Device_Init(VOID)
   /* USER CODE END MX_USBX_Device_Init0 */
 
   /* USER CODE BEGIN MX_USBX_Device_Init1 */
-
+  // Call a ux_cdc_stm32_* function => missing symbol
+  ux_dcd_stm32_initialize((ULONG)USB_OTG_HS, (ULONG)&hpcd_USB_OTG_HS);
   /* USER CODE END MX_USBX_Device_Init1 */
 
   return ret;
