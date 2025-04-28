@@ -19,11 +19,13 @@ set(MX_Include_Dirs
     ${CMAKE_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32U5xx/Include
     ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/inc
     ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/ports/generic/inc
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/usbx_stm32_device_controllers
     ${CMAKE_SOURCE_DIR}/Drivers/CMSIS/Include
 )
 
 # STM32CubeMX generated application sources
 set(MX_Application_Src
+    ${CMAKE_SOURCE_DIR}/USBX/App/app_usbx_device.c
     ${CMAKE_SOURCE_DIR}/Core/Src/main.c
     ${CMAKE_SOURCE_DIR}/Core/Src/stm32u5xx_it.c
     ${CMAKE_SOURCE_DIR}/Core/Src/stm32u5xx_hal_msp.c
@@ -60,6 +62,32 @@ set(STM32_Drivers_Src
 
 
 set(USBX_Src
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_alternate_setting_get.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_alternate_setting_set.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_class_register.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_class_unregister.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_clear_feature.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_configuration_get.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_configuration_set.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_control_request_process.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_descriptor_send.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_disconnect.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_endpoint_stall.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_get_status.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_host_wakeup.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_initialize.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_interface_delete.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_interface_get.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_interface_set.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_interface_start.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_microsoft_extension_register.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_set_feature.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_transfer_abort.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_transfer_all_request_abort.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_transfer_request.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_uninitialize.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_tasks_run.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_device_stack_transfer_run.c
     ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_system_tasks_run.c
     ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_debug_callback_register.c
     ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_debug_log.c

@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "app_usbx_device.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -92,6 +93,7 @@ int main(void)
   MX_GPIO_Init();
   MX_ICACHE_Init();
   MX_USB_OTG_HS_PCD_Init();
+  MX_USBX_Device_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
