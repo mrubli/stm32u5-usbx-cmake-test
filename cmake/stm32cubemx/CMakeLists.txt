@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.22)
 enable_language(C ASM)
 # STM32CubeMX generated symbols (macros)
 set(MX_Defines_Syms 
+	UX_INCLUDE_USER_DEFINE_FILE 
 	USE_HAL_DRIVER 
 	STM32U599xx
     $<$<CONFIG:Debug>:DEBUG>
@@ -10,10 +11,14 @@ set(MX_Defines_Syms
 
 # STM32CubeMX generated include paths
 set(MX_Include_Dirs
+    ${CMAKE_SOURCE_DIR}/USBX/App
+    ${CMAKE_SOURCE_DIR}/USBX/Target
     ${CMAKE_SOURCE_DIR}/Core/Inc
     ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Inc
     ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Inc/Legacy
     ${CMAKE_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32U5xx/Include
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/inc
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/ports/generic/inc
     ${CMAKE_SOURCE_DIR}/Drivers/CMSIS/Include
 )
 
@@ -31,6 +36,7 @@ set(MX_Application_Src
 set(STM32_Drivers_Src
     ${CMAKE_SOURCE_DIR}/Core/Src/system_stm32u5xx.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_cortex.c
+    ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_icache.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_i2c.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_i2c_ex.c
@@ -45,12 +51,51 @@ set(STM32_Drivers_Src
     ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_gtzc.c
-    ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_icache.c
+    ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pcd.c
+    ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pcd_ex.c
+    ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_usb.c
 )
 
 # Drivers Midllewares
 
 
+set(USBX_Src
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_system_tasks_run.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_debug_callback_register.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_debug_log.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_delay_ms.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_descriptor_pack.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_descriptor_parse.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_error_callback_register.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_long_get.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_long_get_big_endian.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_long_put.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_long_put_big_endian.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_memory_allocate.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_memory_allocate_add_safe.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_memory_allocate_mulc_safe.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_memory_allocate_mulv_safe.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_memory_compare.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_memory_copy.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_memory_free.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_memory_byte_pool_create.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_memory_byte_pool_search.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_memory_set.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_physical_address.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_set_interrupt_handler.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_short_get.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_short_get_big_endian.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_short_put.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_short_put_big_endian.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_string_length_check.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_string_length_get.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_string_to_unicode.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_unicode_to_string.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_utility_virtual_address.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_system_error_handler.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_system_initialize.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/usbx/common/core/src/ux_system_uninitialize.c
+)
 
 # Link directories setup
 set(MX_LINK_DIRS
@@ -59,7 +104,7 @@ set(MX_LINK_DIRS
 # Project static libraries
 set(MX_LINK_LIBS 
     STM32_Drivers
-    
+    USBX	
 )
 # Interface library for includes and symbols
 add_library(stm32cubemx INTERFACE)
@@ -71,6 +116,11 @@ add_library(STM32_Drivers OBJECT)
 target_sources(STM32_Drivers PRIVATE ${STM32_Drivers_Src})
 target_link_libraries(STM32_Drivers PUBLIC stm32cubemx)
 
+
+# Create USBX static library
+add_library(USBX OBJECT)
+target_sources(USBX PRIVATE ${USBX_Src})
+target_link_libraries(USBX PUBLIC stm32cubemx)
 
 # Add STM32CubeMX generated application sources to the project
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${MX_Application_Src})
